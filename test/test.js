@@ -58,4 +58,67 @@ describe('lei-pipe', function () {
     });
   });
 
+  it('#base - break', function (done) {
+    var p = new Pipe();
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.add(function (data, next, end) {
+      data++;
+      end(null, data);
+    });
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.start(1, function (err, data) {
+      should.equal(err, null);
+      data.should.equal(3);
+      done();
+    });
+  });
+
+  it('#base - error - 1', function (done) {
+    var p = new Pipe();
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.add(function (data, next) {
+      data++;
+      next(new Error(), data);
+    });
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.start(1, function (err, data) {
+      err.should.instanceof(Error);
+      data.should.equal(3);
+      done();
+    });
+  });
+
+  it('#base - error - 2', function (done) {
+    var p = new Pipe();
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.add(function (data, next, end) {
+      data++;
+      end(new Error(), data);
+    });
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.start(1, function (err, data) {
+      err.should.instanceof(Error);
+      data.should.equal(3);
+      done();
+    });
+  });
+
 });
