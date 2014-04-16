@@ -121,4 +121,25 @@ describe('lei-pipe', function () {
     });
   });
 
+  it('#base - error - 3', function (done) {
+    var p = new Pipe();
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.add(function (data, next, end) {
+      data++;
+      throw new Error('test');
+    });
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.start(1, function (err, data) {
+      err.should.instanceof(Error);
+      data.should.equal(2);
+      done();
+    });
+  });
+
 });
