@@ -86,6 +86,9 @@ describe('lei-pipe', function () {
     p.add('d', {before: ['c']}, function (data, next) {
       next(null, data + 'd');
     });
+    p.add('e', function (data, next) {
+      next(null, data + 'e');
+    });
     p.start('', function (err, data) {
       should.equal(err, null);
       data.should.equal('decba');
