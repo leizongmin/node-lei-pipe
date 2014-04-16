@@ -72,4 +72,25 @@ describe('lei-pipe', function () {
     });
   });
 
+  it('#sort - 4', function (done) {
+    var p = new Pipe();
+    p.add('a', function (data, next) {
+      next(null, data + 'a');
+    });
+    p.add('b', {before: ['a'], after: ['c']}, function (data, next) {
+      next(null, data + 'b');
+    });
+    p.add('c', {before: ['a'], after: ['e']}, function (data, next) {
+      next(null, data + 'c');
+    });
+    p.add('d', {before: ['c']}, function (data, next) {
+      next(null, data + 'd');
+    });
+    p.start('', function (err, data) {
+      should.equal(err, null);
+      data.should.equal('decba');
+      done();
+    });
+  });
+
 });
