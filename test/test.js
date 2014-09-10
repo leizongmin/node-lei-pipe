@@ -181,4 +181,26 @@ describe('lei-pipe', function () {
     });
   });
 
+  it('#base - data2', function (done) {
+    var p = new Pipe();
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.add(function (data, next) {
+      data++;
+      next(null, data);
+    });
+    p.start(1, function (err, data, data2) {
+      should.equal(err, null);
+      data.should.equal(4);
+      data2.should.equal(456);
+      done();
+    }, 456);
+  });
+
 });
