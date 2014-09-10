@@ -1,6 +1,6 @@
 {
   "name": "lei-pipe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "pipe",
   "main": "lib/index.js",
   "scripts": {
