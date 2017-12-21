@@ -1,6 +1,8 @@
 node-lei-pipe
 =============
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/leizongmin/node-lei-pipe.svg)](https://greenkeeper.io/)
+
 流水线式执行一系列函数，可指定简单的依赖关系
 
 ```JavaScript
